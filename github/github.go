@@ -93,7 +93,8 @@ func (c *Client) ParseFromURL(baseRepoURL, repoName string) (RepoInfo, error) {
 		return ret, fmt.Errorf("error creating request: %w", err)
 	}
 
-	resp, err := http.DefaultClient.Do(req)
+	httpClient := &http.Client{Transport: c.rt}
+	resp, err := httpClient.Do(req)
 	if err != nil {
 		return ret, fmt.Errorf("error creating request: %w", err)
 	}
